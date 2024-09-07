@@ -17,7 +17,7 @@ function Login() {
       if (user.password === password) {
         console.log('Login successful!');
         localStorage.setItem('username', username);
-        navigate('/'); // Redirect to the dashboard or home page
+        navigate('/'); 
       } else {
         setError('Invalid password');
       }

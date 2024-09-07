@@ -25,7 +25,7 @@ function Signup() {
       };
       localStorage.setItem('users', JSON.stringify(storedUsers));
       localStorage.setItem('username', username);
-      navigate('/'); // Redirect to the dashboard or home page
+      navigate('/'); 
     }
   };  
   return (
