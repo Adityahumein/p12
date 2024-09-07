@@ -12,7 +12,7 @@ function Signup() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const storedUsers = JSON.parse(localStorage.getItem('users'));
+    let storedUsers = JSON.parse(localStorage.getItem('users'));
     if (!storedUsers) {
       storedUsers = {};
     }
@@ -27,8 +27,7 @@ function Signup() {
       localStorage.setItem('username', username);
       navigate('/'); // Redirect to the dashboard or home page
     }
-  };
-
+  };  
   return (
     <div className='sp1'>
       <div className="signup-page">

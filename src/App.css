@@ -486,7 +486,6 @@
 }
 
 .footer-section {
-  
   margin-bottom: 10px;
 }
 
@@ -627,3 +626,27 @@
   line-height: 1.5;
 }
 /* disc */
+/* Common */
+.dark-mode .aboutus-container,
+.dark-mode .terms-and-conditions,
+.dark-mode .disclaimer {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-mode .aboutus-content p,
+.dark-mode .terms-and-conditions p,
+.dark-mode .disclaimer p {
+  color: #fff;
+}
+
+.dark-mode .aboutus-content h1,
+.dark-mode .terms-and-conditions h2,
+.dark-mode .disclaimer h2 {
+  color: #fff;
+}
+
+.dark-mode .aboutus-logo {
+  border: 2px solid #fff;
+}
+/* common */
