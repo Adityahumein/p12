@@ -1,5 +1,6 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import axios from 'axios';
 
 export default function Registration() {
     
@@ -94,16 +95,34 @@ export default function Registration() {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-            // Call API or perform registration logic here
-            console.log(values);
+          const formData = new FormData();
+          for (const key in values) {
+            if (values[key] && key !== 'aadhaarDocument' && key !== 'panDocument' && key !== 'gstDocument') {
+              formData.append(key, values[key]);
+            }
+          }
+          if (values.aadhaarDocument) formData.append('aadhaarDocument', values.aadhaarDocument);
+          if (values.panDocument) formData.append('panDocument', values.panDocument);
+          if (values.gstDocument) formData.append('gstDocument', values.gstDocument);
+        
+          console.log('FormData:', formData);
+          axios.post('http://localhost:5000/register', formData, {
+            headers: {
+               'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then(response => {
+            console.log('Success:', response.data);
+            alert('Registration successful!');
+            window.location.href = '/';
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          })
+          .finally(() => {
             setSubmitting(false);
-            // Handle uploaded documents here
-            const formData = new FormData();
-            formData.append('aadhaarDocument', values.aadhaarDocument);
-            formData.append('panDocument', values.panDocument);
-            formData.append('gstDocument', values.gstDocument);
-            // Send the form data to the server or perform other logic
-          }}
+          });
+        }}
       >
         {({ isSubmitting }) => (
           <Form>
@@ -167,7 +186,6 @@ export default function Registration() {
               <ErrorMessage name="institutionType" component="div" />
             </div>
 
-            
             <div className="form-group">
               <label>Aadhaar Number:</label>
               <Field type="text" name="aadhaarNumber" />
@@ -175,21 +193,20 @@ export default function Registration() {
               <input type="file" name="aadhaarDocument" />
             </div>
 
-            
             <div className="form-group">
               <label>PAN Number:</label>
               <Field type="text" name="panNumber" />
               <ErrorMessage name="panNumber" component="div" />
               <input type="file" name="panDocument" /> 
             </div>
-            
+
             <div className="form-group">
               <label>GST Number:</label>
               <Field type="text" name="gstNumber" />
               <ErrorMessage name="gstNumber" component="div" />
               <input type="file" name="gstDocument" /> 
             </div>
-            <button type="submit" disabled={isSubmitting}>
+            <button type="submit" disabled={isSubmitting} >
               Register
             </button>
           </Form>
@@ -199,3 +216,4 @@ export default function Registration() {
     </div>
   );
 }
+           

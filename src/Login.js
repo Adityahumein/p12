@@ -1,5 +1,5 @@
-// Login.js
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 
@@ -9,20 +9,14 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const storedUsers = JSON.parse(localStorage.getItem('users'));
-    if (storedUsers && storedUsers[username]) {
-      const user = storedUsers[username];
-      if (user.password === password) {
-        console.log('Login successful!');
-        localStorage.setItem('username', username);
-        navigate('/'); 
-      } else {
-        setError('Invalid password');
-      }
-    } else {
-      setError('User not found');
+    try {
+      const response = await axios.post('http://localhost:4000/login', { username, password });
+      localStorage.setItem('token', response.data.token);
+      navigate('/');
+    } catch (err) {
+      setError(err.response?.data?.message || 'An error occurred');
     }
   };
 
@@ -33,10 +27,10 @@ function Login() {
           <h2>Login</h2>
           <form onSubmit={handleSubmit}>
             <label>Username:</label>
-            <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
             <br />
             <label>Password:</label>
-            <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <br />
             <button type="submit">Login</button>
             {error && <div style={{ color: 'red' }}>{error}</div>}

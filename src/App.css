@@ -13,9 +13,9 @@
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 } 
 .dark-mode-checkbox {
-  top: 90vh;
+  top: 87vh;
   position: fixed !important;
-  right: 30px !important;
+  left: 30px !important;
 }
 .navbar .heading {
   margin-top: 0;
