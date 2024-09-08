@@ -106,7 +106,7 @@ export default function Registration() {
           if (values.gstDocument) formData.append('gstDocument', values.gstDocument);
         
           console.log('FormData:', formData);
-          axios.post('http://localhost:5000/register', formData, {
+          axios.post('http://localhost:4001/register', formData, {
             headers: {
                'Content-Type': 'multipart/form-data',
             },

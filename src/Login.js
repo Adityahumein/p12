@@ -1,9 +1,10 @@
+// Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 
-function Login() {
+function Login({ onLogin }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -12,8 +13,9 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/login', { username, password });
+      const response = await axios.post('http://localhost:4001/login', { username, password });
       localStorage.setItem('token', response.data.token);
+      onLogin(); // Notify parent component
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred');

@@ -13,7 +13,7 @@ function Signup() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post('http://localhost:4000/signup', { username, email, password });
+      await axios.post('http://localhost:4001/signup', { username, email, password });
       navigate('/login');
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred');
@@ -27,13 +27,25 @@ function Signup() {
           <h2>Signup</h2>
           <form onSubmit={handleSubmit}>
             <label>Username:</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
             <br />
             <label>Email:</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <br />
             <label>Password:</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <br />
             <button type="submit">Signup</button>
             {error && <div style={{ color: 'red' }}>{error}</div>}
